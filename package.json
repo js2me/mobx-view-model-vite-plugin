@@ -1,0 +1,61 @@
+{
+  "name": "mobx-view-model-vite-plugin",
+  "version": "0.0.1",
+  "scripts": {
+    "prepare": "pnpm dev:install-hooks",
+    "clean": "rimraf dist",
+    "check": "eslint . --fix",
+    "prebuild": "npm run clean && npm run check",
+    "build:watch": "pnpm build && nodemon --watch src --ext ts --exec \"tsc && node ./post-build.mjs\"",
+    "build": "tsc && node ./post-build.mjs",
+    "pub": "PUBLISH=true pnpm run build",
+    "pub:patch": "PUBLISH=true PUBLISH_VERSION=patch pnpm run build",
+    "pub:minor": "PUBLISH=true PUBLISH_VERSION=minor pnpm run build",
+    "pub:major": "PUBLISH=true PUBLISH_VERSION=major pnpm run build",
+    "test": "vitest run",
+    "test:watch": "vitest watch",
+    "test:coverage": "vitest run --coverage",
+    "docs": "pnpm build && cd docs && pnpm dev",
+    "docs:build": "pnpm build && cd docs && pnpm build",
+    "docs:serve": "cd docs && pnpm preview",
+    "dev": "pnpm test:watch",
+    "dev:install-hooks": "if [ -z \"$CI\" ]; then lefthook install; fi"
+  },
+  "keywords": [
+    "mobx",
+    "tanstack",
+    "tanstack-query",
+    "query",
+    "mutation"
+  ],
+  "author": "js2me",
+  "license": "MIT",
+  "description": "vite plugin for mobx-view-model",
+  "bugs": {
+    "url": "https://github.com/js2me/mobx-view-model-vite-plugin/issues"
+  },
+  "homepage": "https://github.com/js2me/mobx-view-model-vite-plugin",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/js2me/mobx-view-model-vite-plugin"
+  },
+  "peerDependencies": {
+    "vite": "^6.3.5"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/lodash-es": "^4.17.12",
+    "@types/node": "^20.14.5",
+    "commitfmt": "^1.0.4",
+    "eslint": "^8.57.0",
+    "js2me-eslint-config": "^1.0.6",
+    "js2me-exports-post-build-script": "^3.0.2",
+    "jsdom": "^25.0.1",
+    "lefthook": "^1.11.14",
+    "nodemon": "^3.1.0",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.4.5",
+    "yummies": "^4.2.0"
+  },
+  "packageManager": "pnpm@9.5.0+sha512.140036830124618d624a2187b50d04289d5a087f326c9edfc0ccd733d76c4f52c3a313d4fc148794a2a9d81553016004e6742e8cf850670268a7387fc220c903"
+}
