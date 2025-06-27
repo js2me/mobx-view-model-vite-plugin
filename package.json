@@ -23,10 +23,10 @@
   },
   "keywords": [
     "mobx",
-    "tanstack",
-    "tanstack-query",
-    "query",
-    "mutation"
+    "mobx-view-model",
+    "mvvm",
+    "vite",
+    "vite-plugin"
   ],
   "author": "js2me",
   "license": "MIT",
