@@ -42,7 +42,9 @@
   "peerDependencies": {
     "vite": "^6.3.5"
   },
-  "dependencies": {},
+  "dependencies": {
+    "fast-glob": "^3.3.3"
+  },
   "devDependencies": {
     "@types/lodash-es": "^4.17.12",
     "@types/node": "^20.14.5",
