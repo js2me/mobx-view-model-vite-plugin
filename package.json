@@ -21,6 +21,7 @@
     "dev": "pnpm test:watch",
     "dev:install-hooks": "if [ -z \"$CI\" ]; then lefthook install; fi"
   },
+  "type": "module",
   "keywords": [
     "mobx",
     "mobx-view-model",
