@@ -12,10 +12,13 @@ import path from 'node:path';
 // Глобальный кэш для отслеживания иерархии классов
 const viewModelHierarchyCache = new Map<string, string[]>();
 
-export interface MobxViewModelVitePluginOptions {}
+export interface MobxViewModelVitePluginOptions {
+  enabled?: boolean;
+}
+
+const pluginName = 'mobx-view-model-vite-plugin';
 
 export function mobxViewModel(
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   options?: MobxViewModelVitePluginOptions,
 ): Plugin {
   let isReloadPending = false;
@@ -124,8 +127,14 @@ export function mobxViewModel(
     );
   };
 
+  if (!options?.enabled) {
+    return {
+      name: pluginName,
+    };
+  }
+
   return {
-    name: 'mobx-viewmodel-reload-plugin',
+    name: pluginName,
 
     // Инициализация при старте сервера
     async buildStart() {
