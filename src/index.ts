@@ -11,7 +11,7 @@ import fs from 'node:fs';
 import { ViewModelHierarchy } from './view-model-hierarchy';
 
 export interface MobxViewModelVitePluginOptions {
-  enabled?: boolean;
+  reloadOnChangeViewModel?: boolean;
 }
 
 const pluginName = 'mobx-view-model-vite-plugin';
@@ -23,7 +23,7 @@ export function mobxViewModel(
 
   const vmHierarchy = new ViewModelHierarchy();
 
-  if (!options?.enabled) {
+  if (!options?.reloadOnChangeViewModel) {
     return {
       name: pluginName,
     };
@@ -46,6 +46,7 @@ export function mobxViewModel(
       const { file, server } = ctx;
 
       if (!file.endsWith('.ts') && !file.endsWith('.tsx')) return;
+      if (!options.reloadOnChangeViewModel) return;
 
       try {
         const content = fs.readFileSync(file, 'utf8');

@@ -24,7 +24,9 @@ import { mobxViewModel } from "mobx-view-model-vite-plugin";
 // in your vite config
 ...
 plugins: [
-  mobxViewModel()
+  mobxViewModel({
+    reloadOnChangeViewModel: true
+  })
 ]
 ...
 ```
