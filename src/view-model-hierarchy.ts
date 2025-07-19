@@ -94,6 +94,24 @@ export class ViewModelHierarchy {
         this.cache.set(`${filePath}:${className}`, []);
       });
     }
+
+    if (
+      /implements\s+ViewModel\b/.test(content) &&
+      /from\s+['"]mobx-view-model['"]/.test(content)
+    ) {
+      classHierarchy.forEach((className) => {
+        this.cache.set(`${filePath}:${className}`, []);
+      });
+    }
+
+    if (
+      /implements\s+ViewModelSimple\b/.test(content) &&
+      /from\s+['"]mobx-view-model['"]/.test(content)
+    ) {
+      classHierarchy.forEach((className) => {
+        this.cache.set(`${filePath}:${className}`, []);
+      });
+    }
   };
 
   /**
