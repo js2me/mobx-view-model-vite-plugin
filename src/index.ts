@@ -8,7 +8,7 @@ import type { Plugin } from 'vite';
 
 import fs from 'node:fs';
 
-import { ViewModelHierarchy } from './view-model-hierarchy';
+import { ViewModelHierarchy } from './view-model-hierarchy.js';
 
 export interface MobxViewModelVitePluginOptions {
   reloadOnChangeViewModel?: boolean;
@@ -35,9 +35,12 @@ export function mobxViewModel(
     // Инициализация при старте сервера
     async buildStart() {
       const root = process.cwd();
-      const sourceFiles = await glob(`${root}/**/*.{ts,tsx}`, {
+      const allFiles = await glob(`${root}/**/*.{ts,tsx}`, {
         absolute: true,
       });
+      const sourceFiles = allFiles.filter(
+        (it) => !it.startsWith(`${root}/node_modules/`),
+      );
       vmHierarchy.build(sourceFiles);
     },
 

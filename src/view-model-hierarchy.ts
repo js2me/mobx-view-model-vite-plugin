@@ -51,7 +51,7 @@ export class ViewModelHierarchy {
 
           if (parentClassMatch) {
             const parentBase = parentClassMatch[1];
-            parents.push(`${parentFile}:${parentBase}`);
+            parents.push(this.createCacheKey(parentFile, parentBase));
             return [
               ...parents,
               ...this.getParentClasses(parentBase, parentFile, parentContent),
@@ -64,6 +64,18 @@ export class ViewModelHierarchy {
     }
 
     return parents;
+  };
+
+  private createCacheKey = (filePath: string, className: string) => {
+    return `${filePath}:${className}`;
+  };
+
+  link = (filePath: string, className: string, tags: string[] = []) => {
+    const cacheKey = this.createCacheKey(filePath, className);
+    if (!this.cache.has(cacheKey)) {
+      console.log(cacheKey, tags);
+    }
+    this.cache.set(cacheKey, tags);
   };
 
   analyzeFile = (filePath: string, content: string) => {
@@ -79,7 +91,7 @@ export class ViewModelHierarchy {
       classHierarchy.push(className);
 
       // Запоминаем связь класс -> базовый класс
-      this.cache.set(`${filePath}:${className}`, [
+      this.link(filePath, className, [
         `${filePath}:${baseClassName}`,
         ...this.getParentClasses(baseClassName, filePath, content),
       ]);
@@ -91,7 +103,7 @@ export class ViewModelHierarchy {
       /from\s+['"]mobx-view-model['"]/.test(content)
     ) {
       classHierarchy.forEach((className) => {
-        this.cache.set(`${filePath}:${className}`, []);
+        this.link(filePath, className);
       });
     }
 
@@ -100,7 +112,7 @@ export class ViewModelHierarchy {
       /from\s+['"]mobx-view-model['"]/.test(content)
     ) {
       classHierarchy.forEach((className) => {
-        this.cache.set(`${filePath}:${className}`, []);
+        this.link(filePath, className);
       });
     }
 
@@ -109,7 +121,7 @@ export class ViewModelHierarchy {
       /from\s+['"]mobx-view-model['"]/.test(content)
     ) {
       classHierarchy.forEach((className) => {
-        this.cache.set(`${filePath}:${className}`, []);
+        this.link(filePath, className);
       });
     }
   };
@@ -118,7 +130,7 @@ export class ViewModelHierarchy {
    * Относится ли этот файл к вью моделям
    */
   isRelated = (filePath: string, className: string): boolean => {
-    const key = `${filePath}:${className}`;
+    const key = this.createCacheKey(filePath, className);
 
     // Проверяем кэш
     if (this.cache.has(key)) {
