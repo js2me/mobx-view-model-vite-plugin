@@ -67,9 +67,13 @@ __orig_storeCreate__.sub((store) => {
   __stores__.push(store);${devtoolsConnect}
 });
 
-${!devtoolsEnabled ? `if (__orig_storeCreate__.lastPub?.[0]) {
+${
+  !devtoolsEnabled
+    ? `if (__orig_storeCreate__.lastPub?.[0]) {
   __stores__.push(__orig_storeCreate__.lastPub[0]);
-}` : ''}
+}`
+    : ''
+}
 
 globalThis.__MOBX_VM_PLUGIN_STORES__ = __stores__;
 `;

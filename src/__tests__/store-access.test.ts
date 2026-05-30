@@ -44,7 +44,9 @@ describe('getRuntimeModuleSource', () => {
   it('captures lastPub before define() to avoid internal store overwriting it', () => {
     const source = getRuntimeModuleSource(true);
     expect(source).toContain('__lastStoreBeforeDefine__');
-    expect(source).toMatch(/__lastStoreBeforeDefine__\s*=\s*__orig_storeCreate__\.lastPub/);
+    expect(source).toMatch(
+      /__lastStoreBeforeDefine__\s*=\s*__orig_storeCreate__\.lastPub/,
+    );
     // define() call should come AFTER the capture
     const captureIndex = source.indexOf('__lastStoreBeforeDefine__');
     const defineIndex = source.indexOf('ViewModelDevtools.define');

@@ -83,7 +83,9 @@ export function detectViewModelClasses(
   // or is an imported VM class from another file)
   const extendsAnyRe = /class\s+(\w+)\s+extends\s+(\w+)/g;
   const knownNames = new Set(classes.map((c) => c.name));
-  const importedByName = new Map(importedVmClasses.map((v) => [v.localName, v.type]));
+  const importedByName = new Map(
+    importedVmClasses.map((v) => [v.localName, v.type]),
+  );
   while ((match = extendsAnyRe.exec(code)) !== null) {
     const [, className, baseName] = match;
     if (knownNames.has(className)) continue;
@@ -123,7 +125,11 @@ export function detectViewModelClasses(
 export function extractImportBindings(
   code: string,
 ): { localName: string; importedName: string; source: string }[] {
-  const bindings: { localName: string; importedName: string; source: string }[] = [];
+  const bindings: {
+    localName: string;
+    importedName: string;
+    source: string;
+  }[] = [];
 
   // import { X, Y as Z } from 'source'
   const namedImportRe = /import\s*\{([^}]+)\}\s*from\s*['"]([^'"]+)['"]/g;

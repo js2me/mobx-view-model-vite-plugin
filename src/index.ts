@@ -4,7 +4,10 @@ import { dirname, join } from 'node:path';
 import type { Plugin } from 'vite';
 import MagicString from 'magic-string';
 import { DependencyGraph } from './dependency-graph.js';
-import { detectViewModelClasses, extractImportBindings } from './detect-vm-classes.js';
+import {
+  detectViewModelClasses,
+  extractImportBindings,
+} from './detect-vm-classes.js';
 import type { ImportedVmClass } from './detect-vm-classes.js';
 import { detectViewModelUsage } from './detect-vm-usage.js';
 import { detectObserverCalls } from './detect-observer.js';
@@ -86,7 +89,10 @@ export function mobxVmVitePlugin(options?: MobxVmVitePluginOptions): Plugin {
       for (const binding of importBindings) {
         const vmType = graph.getVmType(binding.importedName);
         if (vmType) {
-          importedVmClasses.push({ localName: binding.localName, type: vmType });
+          importedVmClasses.push({
+            localName: binding.localName,
+            type: vmType,
+          });
         }
       }
       const classes = detectViewModelClasses(code, importedVmClasses);
@@ -152,7 +158,10 @@ export function mobxVmVitePlugin(options?: MobxVmVitePluginOptions): Plugin {
       for (const binding of importBindings) {
         const vmType = graph.getVmType(binding.importedName);
         if (vmType) {
-          importedVmClasses.push({ localName: binding.localName, type: vmType });
+          importedVmClasses.push({
+            localName: binding.localName,
+            type: vmType,
+          });
         }
       }
       const classes = detectViewModelClasses(content, importedVmClasses);

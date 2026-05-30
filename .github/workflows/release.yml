@@ -2,7 +2,7 @@ name: Version or Publish
 
 on:
   workflow_run:
-    workflows: ["CI"]
+    workflows: ['CI']
     types: [completed]
 
 concurrency: ${{ github.workflow }}

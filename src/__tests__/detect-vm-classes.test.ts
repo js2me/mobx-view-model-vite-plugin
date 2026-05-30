@@ -1,5 +1,8 @@
 import { describe, it, expect } from 'vitest';
-import { detectViewModelClasses, extractImportBindings } from '../detect-vm-classes.js';
+import {
+  detectViewModelClasses,
+  extractImportBindings,
+} from '../detect-vm-classes.js';
 import type { ImportedVmClass } from '../detect-vm-classes.js';
 
 describe('detectViewModelClasses', () => {
@@ -189,7 +192,11 @@ export class RemoteChild extends RemoteVM {}`;
     ];
     const result = detectViewModelClasses(code, importedVmClasses);
     expect(result).toHaveLength(3);
-    expect(result.map((c) => c.name)).toEqual(['LocalVM', 'LocalChild', 'RemoteChild']);
+    expect(result.map((c) => c.name)).toEqual([
+      'LocalVM',
+      'LocalChild',
+      'RemoteChild',
+    ]);
   });
 });
 

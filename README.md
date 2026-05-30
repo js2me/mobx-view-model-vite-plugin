@@ -12,7 +12,7 @@ npm install mobx-view-model-vite-plugin
 
 ```ts
 // vite.config.ts
-import { mobxVmVitePlugin } from "mobx-view-model-vite-plugin";
+import { mobxVmVitePlugin } from 'mobx-view-model-vite-plugin';
 
 export default {
   plugins: [mobxVmVitePlugin()],
@@ -53,7 +53,7 @@ const Header = observer(() => {
 const Header = observer(() => {
   return <div>Hello</div>;
 });
-Header.displayName = "Header";
+Header.displayName = 'Header';
 ```
 
 Works with named exports too:
@@ -101,7 +101,7 @@ Auto-connect `mobx-view-model-devtools`. Pass `true` for defaults, or an object 
 ```ts
 mobxVmVitePlugin({
   devtools: {
-    position: "top-right", // 'top-right' | 'top-left' | 'bottom-left' | 'bottom-right'
+    position: 'top-right', // 'top-right' | 'top-left' | 'bottom-left' | 'bottom-right'
     defaultIsOpened: false, // whether the panel starts open
   },
 });
