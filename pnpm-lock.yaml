@@ -15,8 +15,8 @@ importers:
         specifier: ^10.0.0
         version: 10.2.0(mobx-react-lite@4.1.1(mobx@6.15.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(mobx@6.15.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       mobx-view-model-devtools:
-        specifier: ^0.0.57
-        version: 0.0.57
+        specifier: ^0.0.58
+        version: 0.0.58
       mobx-view-model-react:
         specifier: ^10.0.0
         version: 10.2.0(mobx-react-lite@4.1.1(mobx@6.15.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(mobx@6.15.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -968,8 +968,8 @@ packages:
     peerDependencies:
       mobx: ^6.12.4
 
-  mobx-view-model-devtools@0.0.57:
-    resolution: {integrity: sha512-wPKwlc12ymdO5ujnyhF3jdStzDnWxSHr9n3pPBjumPBOFw/73KUn29JDNZwdPO84k/wahfWD3lfA6S1WiSg2MA==}
+  mobx-view-model-devtools@0.0.58:
+    resolution: {integrity: sha512-YXbMr7JjuG2r+eQyZEqL90mIFvpAVbMYiEqVXrHZBDSFYb02HOJvd5SSqJR9OZiaFQqWw/bbZNWpBSVJDGjN5w==}
 
   mobx-view-model-react@10.2.0:
     resolution: {integrity: sha512-EhKyI2UQSfT4kVmYqXPRL2YQEK60EO2oTuTXtgRnGODEEauerbq923T7VDbUai+6bMgRsjf9DOXnHwYvkFMuBQ==}
@@ -2185,7 +2185,7 @@ snapshots:
     transitivePeerDependencies:
       - react
 
-  mobx-view-model-devtools@0.0.57:
+  mobx-view-model-devtools@0.0.58:
     dependencies:
       '@gravity-ui/icons': 2.18.0(react@18.3.1)
       mobx: 6.15.4
