@@ -15,8 +15,8 @@ importers:
         specifier: ^10.0.0
         version: 10.2.0(mobx-react-lite@4.1.1(mobx@6.15.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(mobx@6.15.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       mobx-view-model-devtools:
-        specifier: ^0.0.58
-        version: 0.0.58
+        specifier: ^0.0.60
+        version: 0.0.60
       mobx-view-model-react:
         specifier: ^10.0.0
         version: 10.2.0(mobx-react-lite@4.1.1(mobx@6.15.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(mobx@6.15.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -968,8 +968,8 @@ packages:
     peerDependencies:
       mobx: ^6.12.4
 
-  mobx-view-model-devtools@0.0.58:
-    resolution: {integrity: sha512-YXbMr7JjuG2r+eQyZEqL90mIFvpAVbMYiEqVXrHZBDSFYb02HOJvd5SSqJR9OZiaFQqWw/bbZNWpBSVJDGjN5w==}
+  mobx-view-model-devtools@0.0.60:
+    resolution: {integrity: sha512-2oJRhvXT08akTQaSbTEdYXH0/dX49qm7aRvaO9OVtvaedJnnpKA2yaqY6xNS2xo5j8oEz0GEvVHVXG5pE+QSWA==}
 
   mobx-view-model-react@10.2.0:
     resolution: {integrity: sha512-EhKyI2UQSfT4kVmYqXPRL2YQEK60EO2oTuTXtgRnGODEEauerbq923T7VDbUai+6bMgRsjf9DOXnHwYvkFMuBQ==}
@@ -1377,17 +1377,6 @@ packages:
     resolution: {integrity: sha512-hUrmaWBdVDcxvYqnyh09zunKzROWjbZTiNy8dBEjkS7ehEDQibXJ7XvlmtbwuTclUiIyN+CyXQD4Vmko8fNm8w==}
     engines: {node: '>=8'}
     hasBin: true
-
-  yummies@6.9.0:
-    resolution: {integrity: sha512-r0CbemLwbectHbTc2o0U60mFdTHZk6/IxaoTXEKhSuj12dZ0Py/rpu1GD3P4Hhb9WCllaQ8cYLEVJ3If5+alyA==}
-    peerDependencies:
-      mobx: ^6.12.4
-      react: ^18 || ^19
-    peerDependenciesMeta:
-      mobx:
-        optional: true
-      react:
-        optional: true
 
   yummies@7.19.4:
     resolution: {integrity: sha512-OO7jPtnYW+D8DX/1P1vQsWGZZjpQljuW2oEHc3RJ1a8e6SiWOtIUCL8sTwkLO6kaf7NfocRr/ld48vXZnO2hOg==}
@@ -2185,7 +2174,7 @@ snapshots:
     transitivePeerDependencies:
       - react
 
-  mobx-view-model-devtools@0.0.58:
+  mobx-view-model-devtools@0.0.60:
     dependencies:
       '@gravity-ui/icons': 2.18.0(react@18.3.1)
       mobx: 6.15.4
@@ -2197,7 +2186,7 @@ snapshots:
       react-dom: 18.3.1(react@18.3.1)
       simplebar: 6.3.3
       virtua: 0.49.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      yummies: 6.9.0(mobx@6.15.4)(react@18.3.1)
+      yummies: 7.19.4(mobx@6.15.4)(react@18.3.1)
     transitivePeerDependencies:
       - react-native
       - solid-js
@@ -2538,18 +2527,6 @@ snapshots:
     dependencies:
       siginfo: 2.0.0
       stackback: 0.0.2
-
-  yummies@6.9.0(mobx@6.15.4)(react@18.3.1):
-    dependencies:
-      class-variance-authority: 0.7.1
-      clsx: 2.1.1
-      dayjs: 1.11.21
-      dompurify: 3.4.7
-      nanoid: 5.1.11
-      tailwind-merge: 3.6.0
-    optionalDependencies:
-      mobx: 6.15.4
-      react: 18.3.1
 
   yummies@7.19.4(mobx@6.15.4)(react@18.3.1):
     dependencies:
