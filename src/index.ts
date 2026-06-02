@@ -1,4 +1,3 @@
-import { createRequire } from 'node:module';
 import fs from 'node:fs';
 import type { Plugin } from 'vite';
 import MagicString from 'magic-string';
@@ -19,8 +18,6 @@ import {
 import type { MobxVmVitePluginOptions } from './types.js';
 
 const PLUGIN_NAME = 'mobx-view-model-vite-plugin';
-
-const _require = createRequire(import.meta.url);
 
 const MOBX_VM_IMPORT_RE = /from\s+['"]mobx-view-model(?:\/react|\/core)?['"]/;
 
@@ -50,24 +47,19 @@ export function mobxVmVitePlugin(options?: MobxVmVitePluginOptions): Plugin {
       _root = config.root;
     },
 
-    resolveId(id, importer) {
+    async resolveId(id, importer, options) {
       if (id === RUNTIME_MODULE_ID) {
         return RUNTIME_MODULE_RESOLVED;
       }
-      // Resolve devtools from plugin's own node_modules when imported
-      // from the virtual runtime module (which has no resolution context).
-      // Must resolve to ESM entry (index.js), not CJS (index.cjs) —
-      // the virtual module uses named imports which don't work with CJS.
+      // Resolve devtools when imported from the virtual runtime module
+      // (which has no resolution context). Delegate to Vite's own resolver
+      // so it picks the ESM entry via package.json exports["."].import,
+      // not the CJS one that require.resolve() would return.
       if (
         id === 'mobx-view-model-devtools' &&
         importer === RUNTIME_MODULE_RESOLVED
       ) {
-        try {
-          const cjsPath = _require.resolve('mobx-view-model-devtools');
-          return cjsPath.replace(/index\.cjs$/, 'index.js');
-        } catch {
-          // Package not found — let Vite handle the error
-        }
+        return this.resolve(id, _root, { ...options, skipSelf: true });
       }
     },
 
