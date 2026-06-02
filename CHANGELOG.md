@@ -1,5 +1,11 @@
 # mobx-view-model-vite-plugin
 
+## 1.3.2
+
+### Patch Changes
+
+- [`24da47f`](https://github.com/js2me/mobx-view-model-vite-plugin/commit/24da47fd7db12da90265ae7c5b0f92afcb80c817) Thanks [@js2me](https://github.com/js2me)! - fixed devtools connection for pnpm
+
 ## 1.3.1
 
 ### Patch Changes
