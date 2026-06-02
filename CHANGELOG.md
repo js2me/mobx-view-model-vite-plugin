@@ -1,5 +1,11 @@
 # mobx-view-model-vite-plugin
 
+## 1.3.1
+
+### Patch Changes
+
+- [`f5f6119`](https://github.com/js2me/mobx-view-model-vite-plugin/commit/f5f6119fd7e361b1c884060b6b9459ba407094e5) Thanks [@js2me](https://github.com/js2me)! - Fix devtools resolution by using Vite's own resolver instead of fragile CJS path string replacement.
+
 ## 1.3.0
 
 ### Minor Changes
