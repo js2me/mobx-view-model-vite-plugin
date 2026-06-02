@@ -1,5 +1,19 @@
 # mobx-view-model-vite-plugin
 
+## 1.3.0
+
+### Minor Changes
+
+- [`ac7505b`](https://github.com/js2me/mobx-view-model-vite-plugin/commit/ac7505b347d3d34eb1af4c16951e4ac2c2c5ed10) Thanks [@js2me](https://github.com/js2me)! - Add `observerSources` option (default: `['mobx-react-lite', 'mobx-react']`) to detect `observer()` calls from configurable package sources.
+
+  Auto-detect ViewModel classes that extend `ViewModelBase` through intermediate classes across files — even without a direct `mobx-view-model` import.
+
+  Add `debug` option to log detections, HMR injections, and HMR updates.
+
+### Patch Changes
+
+- [`aa018d0`](https://github.com/js2me/mobx-view-model-vite-plugin/commit/aa018d0e7d6d0cabfa0cbc7d8749ea9b32b9a7bb) Thanks [@js2me](https://github.com/js2me)! - Fix devtools import resolving to CJS instead of ESM entry point, which caused `does not provide an export named 'ViewModelDevtools'` error in the browser.
+
 ## 1.2.1
 
 ### Patch Changes
