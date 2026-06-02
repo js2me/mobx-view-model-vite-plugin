@@ -1,6 +1,5 @@
 import { createRequire } from 'node:module';
 import fs from 'node:fs';
-import { dirname, join } from 'node:path';
 import type { Plugin } from 'vite';
 import MagicString from 'magic-string';
 import { DependencyGraph } from './dependency-graph.js';
@@ -64,13 +63,8 @@ export function mobxVmVitePlugin(options?: MobxVmVitePluginOptions): Plugin {
         importer === RUNTIME_MODULE_RESOLVED
       ) {
         try {
-          const pkgJsonPath = _require.resolve(
-            'mobx-view-model-devtools/package.json',
-          );
-          const pkg = JSON.parse(fs.readFileSync(pkgJsonPath, 'utf8'));
-          const esmEntry =
-            pkg.exports?.['.']?.import ?? pkg.module ?? 'index.js';
-          return join(dirname(pkgJsonPath), esmEntry);
+          const cjsPath = _require.resolve('mobx-view-model-devtools');
+          return cjsPath.replace(/index\.cjs$/, 'index.js');
         } catch {
           // Package not found — let Vite handle the error
         }
