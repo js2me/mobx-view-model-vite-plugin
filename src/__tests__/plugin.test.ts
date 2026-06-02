@@ -14,9 +14,9 @@ describe('mobxVmVitePlugin', () => {
     expect(typeof plugin.transform).toBe('function');
   });
 
-  it('resolves virtual runtime module', async () => {
+  it('resolves virtual runtime module', () => {
     const plugin = mobxVmVitePlugin();
-    const resolved = await plugin.resolveId!(
+    const resolved = plugin.resolveId!(
       '\0mobx-view-model-vite-plugin/runtime' as any,
       '',
       {},
