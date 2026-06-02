@@ -67,18 +67,14 @@ export function mobxVmVitePlugin(options?: MobxVmVitePluginOptions): Plugin {
         id === 'mobx-view-model-devtools' &&
         importer === RUNTIME_MODULE_RESOLVED
       ) {
-        try {
-          const cjsPath = _require.resolve('mobx-view-model-devtools');
-          const pkgDir = dirname(cjsPath);
-          const pkgJson = JSON.parse(
-            fs.readFileSync(join(pkgDir, 'package.json'), 'utf8'),
-          );
-          const esmEntry =
-            pkgJson.exports?.['.']?.import ?? pkgJson.module ?? 'index.js';
-          return join(pkgDir, esmEntry);
-        } catch {
-          // Package not found — let Vite handle the error
-        }
+        const cjsPath = _require.resolve('mobx-view-model-devtools');
+        const pkgDir = dirname(cjsPath);
+        const pkgJson = JSON.parse(
+          fs.readFileSync(join(pkgDir, 'package.json'), 'utf8'),
+        );
+        const esmEntry =
+          pkgJson.exports?.['.']?.import ?? pkgJson.module ?? 'index.js';
+        return join(pkgDir, esmEntry);
       }
     },
 
