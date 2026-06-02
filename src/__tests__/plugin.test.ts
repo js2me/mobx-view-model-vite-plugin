@@ -156,4 +156,84 @@ export class CounterVM extends ViewModelBase {}
     // No HMR code since hmr is false
     expect(result.code).not.toContain('import.meta.hot');
   });
+
+  // --- observerSources ---
+
+  it('injects displayName for observer from mobx-react', () => {
+    const plugin = mobxVmVitePlugin();
+    const code = `
+import { observer } from 'mobx-react';
+
+const Header = observer(() => {
+  return <div>Hello</div>;
+});
+`;
+    const result = plugin.transform!(code, '/src/header.tsx') as any;
+    expect(result).toBeDefined();
+    expect(result.code).toContain('Header.displayName = "Header"');
+  });
+
+  it('injects displayName for observer from mobx-react-lite', () => {
+    const plugin = mobxVmVitePlugin();
+    const code = `
+import { observer } from 'mobx-react-lite';
+
+const Header = observer(() => <div />);
+`;
+    const result = plugin.transform!(code, '/src/header.tsx') as any;
+    expect(result).toBeDefined();
+    expect(result.code).toContain('Header.displayName = "Header"');
+  });
+
+  it('respects custom observerSources option', () => {
+    const plugin = mobxVmVitePlugin({ observerSources: ['custom-observer-lib'] });
+    const code = `
+import { observer } from 'custom-observer-lib';
+
+const Header = observer(() => <div />);
+`;
+    const result = plugin.transform!(code, '/src/header.tsx') as any;
+    expect(result).toBeDefined();
+    expect(result.code).toContain('Header.displayName = "Header"');
+  });
+
+  it('ignores observer from non-configured source', () => {
+    const plugin = mobxVmVitePlugin({ observerSources: ['mobx-react-lite'] });
+    const code = `
+import { observer } from 'mobx-react';
+
+const Header = observer(() => <div />);
+`;
+    const result = plugin.transform!(code, '/src/header.tsx') as any;
+    expect(result).toBeUndefined();
+  });
+
+  // --- Cross-file VM class inheritance ---
+
+  it('detects ViewModel class that extends imported VM class without direct mobx-view-model import', () => {
+    const plugin = mobxVmVitePlugin();
+
+    // First, process the base file so the dependency graph knows about CounterVM
+    const baseCode = `
+import { ViewModelBase } from 'mobx-view-model';
+
+export class CounterVM extends ViewModelBase {
+  count = 0;
+}
+`;
+    plugin.transform!(baseCode, '/src/counter/base.ts');
+
+    // Now process a file that extends CounterVM without importing from mobx-view-model
+    const derivedCode = `
+import { CounterVM } from './base';
+
+export class ExtendedVM extends CounterVM {
+  extra = true;
+}
+`;
+    const result = plugin.transform!(derivedCode, '/src/counter/extended.ts') as any;
+    expect(result).toBeDefined();
+    expect(result.code).toContain('import.meta.hot');
+    expect(result.code).toContain('ExtendedVM');
+  });
 });

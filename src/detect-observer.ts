@@ -1,14 +1,23 @@
 import type { ObserverCallInfo } from './types.js';
 
+const DEFAULT_OBSERVER_SOURCES = ['mobx-react-lite', 'mobx-react'];
+
 /**
  * Detects observer() calls that assign to a named variable.
  * Returns info needed to inject displayName assignments.
  */
-export function detectObserverCalls(code: string): ObserverCallInfo[] {
+export function detectObserverCalls(
+  code: string,
+  observerSources: string[] = DEFAULT_OBSERVER_SOURCES,
+): ObserverCallInfo[] {
   const results: ObserverCallInfo[] = [];
 
-  // Only process files that import observer from mobx-react-lite
-  if (!/from\s+['"]mobx-react-lite['"]/.test(code)) {
+  // Only process files that import observer from one of the configured sources
+  const hasObserverImport = observerSources.some((source) => {
+    const re = new RegExp(`from\\s+['"]${escapeRegExp(source)}['"]`);
+    return re.test(code);
+  });
+  if (!hasObserverImport) {
     return results;
   }
 
@@ -110,4 +119,8 @@ function findMatchingParenAndSemicolon(
   }
 
   return -1;
+}
+
+function escapeRegExp(str: string): string {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
