@@ -186,7 +186,9 @@ const Header = observer(() => <div />);
   });
 
   it('respects custom observerSources option', () => {
-    const plugin = mobxVmVitePlugin({ observerSources: ['custom-observer-lib'] });
+    const plugin = mobxVmVitePlugin({
+      observerSources: ['custom-observer-lib'],
+    });
     const code = `
 import { observer } from 'custom-observer-lib';
 
@@ -231,7 +233,10 @@ export class ExtendedVM extends CounterVM {
   extra = true;
 }
 `;
-    const result = plugin.transform!(derivedCode, '/src/counter/extended.ts') as any;
+    const result = plugin.transform!(
+      derivedCode,
+      '/src/counter/extended.ts',
+    ) as any;
     expect(result).toBeDefined();
     expect(result.code).toContain('import.meta.hot');
     expect(result.code).toContain('ExtendedVM');

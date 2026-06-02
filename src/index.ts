@@ -82,7 +82,9 @@ export function mobxVmVitePlugin(options?: MobxVmVitePluginOptions): Plugin {
 
       const isMobxVmFile = MOBX_VM_IMPORT_RE.test(code);
       const isObserverFile = observerSources.some((source) => {
-        const re = new RegExp(`from\\s+['"]${source.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}['"]`);
+        const re = new RegExp(
+          `from\\s+['"]${source.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}['"]`,
+        );
         return re.test(code);
       });
 
@@ -101,7 +103,8 @@ export function mobxVmVitePlugin(options?: MobxVmVitePluginOptions): Plugin {
 
       // Skip files that have no mobx-view-model imports, no observer imports,
       // and don't import any known VM classes from other files
-      if (!isMobxVmFile && !isObserverFile && importedVmClasses.length === 0) return;
+      if (!isMobxVmFile && !isObserverFile && importedVmClasses.length === 0)
+        return;
 
       const s = new MagicString(code);
       let hasEdits = false;
@@ -110,10 +113,16 @@ export function mobxVmVitePlugin(options?: MobxVmVitePluginOptions): Plugin {
       const usages = detectViewModelUsage(code);
 
       if (classes.length > 0) {
-        log(`detected VM classes in ${id}:`, classes.map((c) => `${c.name} (${c.type})`));
+        log(
+          `detected VM classes in ${id}:`,
+          classes.map((c) => `${c.name} (${c.type})`),
+        );
       }
       if (usages.length > 0) {
-        log(`detected VM usages in ${id}:`, usages.map((u) => `${u.usageType}(${u.vmClassName})`));
+        log(
+          `detected VM usages in ${id}:`,
+          usages.map((u) => `${u.usageType}(${u.vmClassName})`),
+        );
       }
 
       graph.addFile(id, classes, usages);
@@ -143,7 +152,10 @@ export function mobxVmVitePlugin(options?: MobxVmVitePluginOptions): Plugin {
       if (autoDisplayName) {
         const observerCalls = detectObserverCalls(code, observerSources);
         if (observerCalls.length > 0) {
-          log(`detected observer calls in ${id}:`, observerCalls.map((c) => c.varName));
+          log(
+            `detected observer calls in ${id}:`,
+            observerCalls.map((c) => c.varName),
+          );
         }
         // Process in reverse order to avoid offset shifts
         for (let i = observerCalls.length - 1; i >= 0; i--) {
@@ -194,7 +206,10 @@ export function mobxVmVitePlugin(options?: MobxVmVitePluginOptions): Plugin {
       // If this file doesn't export ViewModel classes, no special handling needed
       if (classes.length === 0) return;
 
-      log(`HMR update in ${file}, VM classes:`, classes.map((c) => c.name));
+      log(
+        `HMR update in ${file}, VM classes:`,
+        classes.map((c) => c.name),
+      );
 
       // Find all consumer modules and ensure they're included in the HMR update
       const affectedModules = new Set(ctx.modules);
