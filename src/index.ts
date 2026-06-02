@@ -1,5 +1,6 @@
 import { createRequire } from 'node:module';
 import fs from 'node:fs';
+import { dirname, join } from 'node:path';
 import type { Plugin } from 'vite';
 import MagicString from 'magic-string';
 import { DependencyGraph } from './dependency-graph.js';
@@ -55,13 +56,21 @@ export function mobxVmVitePlugin(options?: MobxVmVitePluginOptions): Plugin {
         return RUNTIME_MODULE_RESOLVED;
       }
       // Resolve devtools from plugin's own node_modules when imported
-      // from the virtual runtime module (which has no resolution context)
+      // from the virtual runtime module (which has no resolution context).
+      // Must resolve to ESM entry (index.js), not CJS (index.cjs) —
+      // the virtual module uses named imports which don't work with CJS.
       if (
         id === 'mobx-view-model-devtools' &&
         importer === RUNTIME_MODULE_RESOLVED
       ) {
         try {
-          return _require.resolve('mobx-view-model-devtools');
+          const pkgJsonPath = _require.resolve(
+            'mobx-view-model-devtools/package.json',
+          );
+          const pkg = JSON.parse(fs.readFileSync(pkgJsonPath, 'utf8'));
+          const esmEntry =
+            pkg.exports?.['.']?.import ?? pkg.module ?? 'index.js';
+          return join(dirname(pkgJsonPath), esmEntry);
         } catch {
           // Package not found — let Vite handle the error
         }
