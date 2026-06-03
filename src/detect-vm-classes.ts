@@ -23,7 +23,7 @@ export function detectViewModelClasses(
   code: string,
   importedVmClasses: ImportedVmClass[] = [],
 ): VMClassInfo[] {
-  if (!MOBX_VM_IMPORT_RE.test(code)) {
+  if (!MOBX_VM_IMPORT_RE.test(code) && importedVmClasses.length === 0) {
     return [];
   }
 

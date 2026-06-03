@@ -81,7 +81,7 @@ export { MyVM };`;
     expect(result[0].exportType).toBe('named');
   });
 
-  it('returns empty for files without mobx-view-model import', () => {
+  it('returns empty for files without mobx-view-model import and empty importedVmClasses', () => {
     const code = `
 class CounterVM extends ViewModelBase {
   clicks = 0;
@@ -197,6 +197,43 @@ export class RemoteChild extends RemoteVM {}`;
       'LocalChild',
       'RemoteChild',
     ]);
+  });
+
+  it('detects VM class without mobx-view-model import when importedVmClasses is provided', () => {
+    const code = `
+import { BaseVM } from './model';
+
+export class ChildVM extends BaseVM {}`;
+    const importedVmClasses: ImportedVmClass[] = [
+      { localName: 'BaseVM', type: 'ViewModelBase' },
+    ];
+    const result = detectViewModelClasses(code, importedVmClasses);
+    expect(result).toHaveLength(1);
+    expect(result[0].name).toBe('ChildVM');
+    expect(result[0].type).toBe('ViewModelBase');
+  });
+
+  it('detects VM class with aliased import and no mobx-view-model import', () => {
+    const code = `
+import { BaseVM as MyVM } from './model';
+
+export class ChildVM extends MyVM {}`;
+    const importedVmClasses: ImportedVmClass[] = [
+      { localName: 'MyVM', type: 'ViewModelSimple' },
+    ];
+    const result = detectViewModelClasses(code, importedVmClasses);
+    expect(result).toHaveLength(1);
+    expect(result[0].name).toBe('ChildVM');
+    expect(result[0].type).toBe('ViewModelSimple');
+  });
+
+  it('returns empty for files without mobx-view-model import and no importedVmClasses', () => {
+    const code = `
+import { SomeClass } from './model';
+
+export class ChildVM extends SomeClass {}`;
+    const result = detectViewModelClasses(code);
+    expect(result).toHaveLength(0);
   });
 });
 

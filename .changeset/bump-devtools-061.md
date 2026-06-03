@@ -2,4 +2,4 @@
 'mobx-view-model-vite-plugin': patch
 ---
 
-chore update devtools to 60 version
+Bump mobx-view-model-devtools to ^0.0.61

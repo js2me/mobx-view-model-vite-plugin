@@ -5,6 +5,13 @@ export interface MobxVmVitePluginOptions {
   autoDisplayName?: boolean;
   /** Auto-connect mobx-view-model-devtools (default: false) */
   devtools?: boolean | DevtoolsConfig;
+  /**
+   * Package sources to detect observer() calls from.
+   * Defaults to ['mobx-react-lite', 'mobx-react'].
+   */
+  observerSources?: string[];
+  /** Enable debug logging for detections (default: false) */
+  debug?: boolean;
 }
 
 export interface DevtoolsConfig {
