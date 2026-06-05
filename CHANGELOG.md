@@ -1,5 +1,11 @@
 # mobx-view-model-vite-plugin
 
+## 1.3.4
+
+### Patch Changes
+
+- [`fea827f`](https://github.com/js2me/mobx-view-model-vite-plugin/commit/fea827f74a42da6478e32ae5b06035fb31b769e8) Thanks [@js2me](https://github.com/js2me)! - update devtools
+
 ## 1.3.3
 
 ### Patch Changes
