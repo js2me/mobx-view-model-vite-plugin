@@ -1,5 +1,5 @@
 ---
-"mobx-view-model-vite-plugin": patch
+'mobx-view-model-vite-plugin': patch
 ---
 
 update devtools
